@@ -45,9 +45,9 @@ If you need to update `npm`, you can make it using `npm`! Cool right? After runn
 
 Open `./config.json` then edit it with your settings. You will need:
 
-"executableDir": "C:/Users/Joshua/AppData/Local/chaingreen-blockchain/app-1.1.6/resources/app.asar.unpacked/daemon/" (Windows Example)
-"executableDir": "/usr/lib/chaingreen-blockchain/resources/app.asar.unpacked/daemon/" (Linux Example)
-"scanTime": 5000  (Default 5 seconds)
+- "executableDir": "C:/Users/Joshua/AppData/Local/chaingreen-blockchain/app-1.1.6/resources/app.asar.unpacked/daemon/" (Windows Example)
+- "executableDir": "/usr/lib/chaingreen-blockchain/resources/app.asar.unpacked/daemon/" (Linux Example)
+- "scanTime": 5000  (Default 5 seconds)
 
 ## Running the project
 
