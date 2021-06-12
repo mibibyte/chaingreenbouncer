@@ -3,29 +3,42 @@ const readline = require('readline');
 const fs = require('fs');
 const path = require('path');
 const config = require('./config.json');
-
-console.log("Checking for Chia peers...");
+const blacklist = require('./blacklist.json').blacklist;
+const executable = path.resolve(config.executableDir);
 
 (async function poll() {
-
-    let output = spawn("chaingreen", ["show", "-c",], { shell: true, detached: false, cwd: config.executableDir });
-    const rl = readline.createInterface({ input: output.stdout });
+	console.log("Scanning for bad peers...");
+    let output = spawn("chaingreen", ["show", "-c", ], {
+        shell: true,
+        detached: false,
+        cwd: executable
+    });
+    const rl = readline.createInterface({
+        input: output.stdout
+    });
     rl.on('line', line => processData(line));
     setTimeout(poll, config.scanTime);
 }
 ());
 
-
 async function processData(data) {
     let node = await convertToNode(data);
 
+    //Oops
     if (!node)
         return;
 
-    console.log(node);
+    //Get out of here with that shitcoin...
+    if (node.port == "8444") {
+        console.log(`Removing unwanted node: ${node.ip}:${node.port}`);
+        return removeNode(node.id);
+    }
 
-    if (node.port == "8444")
-        removeNode(node.id);
+    //On the naughty list? GTFO
+    if (blacklist.indexOf(node.ip) > -1) {
+        console.log(`Removing unwanted node: ${node.ip}:${node.port}`);
+        return removeNode(node.id);
+    }
 };
 
 async function convertToNode(data) {
@@ -43,7 +56,10 @@ async function convertToNode(data) {
 }
 
 async function removeNode(id) {
-    let output = spawn("chaingreen", ["show", "-r", id], { shell: true, detached: false, cwd: config.executableDir });
-    const rl = readline.createInterface({ input: output.stdout });
-    rl.on('line', line => console.log(line));
+
+    spawn("chaingreen", ["show", "-r", id], {
+        shell: true,
+        detached: false,
+        cwd: executable
+    });
 }
