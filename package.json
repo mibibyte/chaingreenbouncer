@@ -1,0 +1,12 @@
+{
+  "name": "chain-green-bouncer",
+  "version": "1.0.0",
+  "description": "ChainGreenBouncer",
+  "main": "app.js",
+  "author": {
+    "name": "Joshua"
+  },
+  "dependencies": {
+    "path": "^0.12.7"
+  }
+}
