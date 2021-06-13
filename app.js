@@ -69,6 +69,12 @@ async function processData(data) {
         console.log(`Removing unwanted node: ${node.ip}:${node.port}`);
         return removeNode(node.id);
     }
+	    
+    //Not on the goodboi list? GTFO
+    if (whitelist.indexOf(node.ip) == -1) {
+        console.log(`Removing unwanted node: ${node.ip}:${node.port}`);
+        return removeNode(node.id);
+    }
 };
 
 //Parses output of chaingreen show -c
