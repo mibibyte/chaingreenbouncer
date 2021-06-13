@@ -25,10 +25,9 @@ async function init() {
 
     console.log("Scanning for bad peers...");
 	//Grab our current peers..
-    let output = spawn("chaingreen", ["show", "-c", ], {
+    let output = spawn(path.join(config.executableDir, "chaingreen"), ["show", "-c", ], {
         shell: true,
-        detached: false,
-        cwd: executable
+        detached: false
     });
     const rl = readline.createInterface({
         input: output.stdout
@@ -89,10 +88,9 @@ async function convertToNode(data) {
 
 //Bye!
 async function removeNode(id) {
-    spawn("chaingreen", ["show", "-r", id], {
+    spawn(path.join(config.executableDir, "chaingreen"), ["show", "-r", id], {
         shell: true,
-        detached: false,
-        cwd: executable
+        detached: false
     });
 }
 
@@ -108,10 +106,9 @@ async function addNode(ip) {
 //Restarts all services. Resolves as a promise
 async function restart() {
     return new Promise(function (resolve, reject) {
-        let proc = spawn("chaingreen", ["start", "all", "-r"], {
+        let proc = spawn(path.join(config.executableDir, "chaingreen"), ["start", "all", "-r"], {
             shell: true,
-            detached: false,
-            cwd: executable
+            detached: false
         });
 
         const rl = readline.createInterface({
