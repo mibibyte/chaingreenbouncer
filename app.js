@@ -7,7 +7,8 @@ const blacklist = require('./blacklist.json').blacklist;
 const whitelist = require('./whitelist.json').whitelist;
 const executable = path.resolve(config.executableDir);
 
-const restartInterval = config.restartInterval; 
+const restartInterval = config.restartInterval;
+const restartEnabled = config.restartEnabled; 
 let nextRestart = new Date().getTime() + restartInterval;
 
 init();
@@ -35,8 +36,8 @@ async function init() {
     rl.on('line', line => processData(line));
     setTimeout(poll, config.scanTime);
 
-	//Is it time for a restart?
-    if (now >= nextRestart) {
+	//Is it time for a restart, or is restarting even enabled?
+    if (now >= nextRestart && restartEnabled) {
         nextRestart = now + restartInterval;
         console.log('restarting...');
 
