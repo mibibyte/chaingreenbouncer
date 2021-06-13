@@ -1,4 +1,5 @@
 {	
-    "executableDir": "C:/Users/Joshua/AppData/Local/chaingreen-blockchain/app-1.1.6/resources/app.asar.unpacked/daemon/",
-    "scanTime": 5000 
+    "executableDir": "C:/Users/Joshua/AppData/Local/chaingreen-blockchain/app-1.1.73/resources/app.asar.unpacked/daemon/",
+    "scanTime": 10000,
+	"restartInterval": 3600000
 }
