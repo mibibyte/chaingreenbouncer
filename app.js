@@ -25,7 +25,7 @@ async function init() {
 
     console.log("Scanning for bad peers...");
 	//Grab our current peers..
-    let output = spawn("./chaingreen", ["show", "-c", ], {
+    let output = spawn("chaingreen", ["show", "-c", ], {
         shell: true,
         detached: false,
         cwd: executable
@@ -35,7 +35,7 @@ async function init() {
     });
     rl.on('line', line => processData(line));
     setTimeout(poll, config.scanTime);
-
+	
 	//Is it time for a restart, or is restarting even enabled?
     if (now >= nextRestart && restartEnabled) {
         nextRestart = now + restartInterval;
@@ -54,7 +54,7 @@ async function init() {
 
 async function processData(data) {
     let node = await convertToNode(data);
-
+	
     //Oops
     if (!node)
         return;
@@ -89,7 +89,7 @@ async function convertToNode(data) {
 
 //Bye!
 async function removeNode(id) {
-    spawn("./chaingreen", ["show", "-r", id], {
+    spawn("chaingreen", ["show", "-r", id], {
         shell: true,
         detached: false,
         cwd: executable
@@ -98,7 +98,7 @@ async function removeNode(id) {
 
 //Adds a new node
 async function addNode(ip) {
-    spawn("./chaingreen", ["show", "-a", `${ip}:8744`], {
+    spawn("chaingreen", ["show", "-a", `${ip}:8744`], {
         shell: true,
         detached: false,
         cwd: executable
@@ -108,7 +108,7 @@ async function addNode(ip) {
 //Restarts all services. Resolves as a promise
 async function restart() {
     return new Promise(function (resolve, reject) {
-        let proc = spawn("./chaingreen", ["start", "all", "-r"], {
+        let proc = spawn("chaingreen", ["start", "all", "-r"], {
             shell: true,
             detached: false,
             cwd: executable
