@@ -1,6 +1,6 @@
-# ChainGreenBouncer
+# ChiaForkBouncer
 
-Automatically detects & removes Chia nodes (port 8444) from your ChainGreen node.
+Automatically detects & removes Chia nodes (port 8444) from your Chia Fork node.
 Quick, sloppy, but functional
 
 ---
@@ -48,6 +48,8 @@ Open `./config.json` then edit it with your settings. You will need:
 - "executableDir": "C:/Users/Joshua/AppData/Local/chaingreen-blockchain/app-1.1.6/resources/app.asar.unpacked/daemon/" (Windows Example)
 - "executableDir": "/usr/lib/chaingreen-blockchain/resources/app.asar.unpacked/daemon/" (Linux Example)
 - "scanTime": 5000  (Default 5 seconds)
+- "forkName": chaingreen (change this to your fork name)
+- "port": 8744 (change this to your fork port)
 
 ## Running the project
 

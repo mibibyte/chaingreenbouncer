@@ -9,13 +9,16 @@ const executable = path.resolve(config.executableDir);
 
 const restartInterval = config.restartInterval;
 const restartEnabled = config.restartEnabled; 
+const forkName = config.forkName
+const port = config.port
+
 let nextRestart = new Date().getTime() + restartInterval;
 
 init();
 
 async function init() {
  for (const node of whitelist) {
-            console.log(`Connecting to ${node}:8744`);
+            console.log(`Connecting to ${node}:${port}`);
             addNode(node);
         }
 }
@@ -25,7 +28,7 @@ async function init() {
 
     console.log("Scanning for bad peers...");
 	//Grab our current peers..
-    let output = spawn(path.join(config.executableDir, "chaingreen"), ["show", "-c", ], {
+    let output = spawn(path.join(config.executableDir, forkName), ["show", "-c", ], {
         shell: true,
         detached: false
     });
@@ -44,7 +47,7 @@ async function init() {
         await wait(5000);
 
         for (const node of whitelist) {
-            console.log(`Connecting to ${node}:8744`);
+            console.log(`Connecting to ${node}:${port}`);
             addNode(node);
         }
     }
@@ -59,7 +62,7 @@ async function processData(data) {
         return;
 
     //Bounce anything that isn't CGN
-    if (node.port != "8744") {
+    if (node.port != port) {
         console.log(`Removing unwanted node: ${node.ip}:${node.port}`);
         return removeNode(node.id);
     }
@@ -77,7 +80,7 @@ async function processData(data) {
     }
 };
 
-//Parses output of chaingreen show -c
+//Parses output of forkName show -c
 async function convertToNode(data) {
     let arr = data.split(' ');
     arr = arr.filter(e => e);
@@ -94,7 +97,7 @@ async function convertToNode(data) {
 
 //Bye!
 async function removeNode(id) {
-    spawn(path.join(config.executableDir, "chaingreen"), ["show", "-r", id], {
+    spawn(path.join(config.executableDir, forkName), ["show", "-r", id], {
         shell: true,
         detached: false
     });
@@ -102,7 +105,7 @@ async function removeNode(id) {
 
 //Adds a new node
 async function addNode(ip) {
-    spawn("chaingreen", ["show", "-a", `${ip}:8744`], {
+    spawn(forkName, ["show", "-a", `${ip}:${port}`], {
         shell: true,
         detached: false,
         cwd: executable
@@ -112,7 +115,7 @@ async function addNode(ip) {
 //Restarts all services. Resolves as a promise
 async function restart() {
     return new Promise(function (resolve, reject) {
-        let proc = spawn(path.join(config.executableDir, "chaingreen"), ["start", "all", "-r"], {
+        let proc = spawn(path.join(config.executableDir, forkName), ["start", "all", "-r"], {
             shell: true,
             detached: false
         });

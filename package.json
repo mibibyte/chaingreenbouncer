@@ -1,7 +1,7 @@
 {
-  "name": "chain-green-bouncer",
-  "version": "1.0.0",
-  "description": "ChainGreenBouncer",
+  "name": "chia-fork-bouncer",
+  "version": "1.0.1",
+  "description": "ChiaForkBouncer",
   "main": "app.js",
   "author": {
     "name": "Joshua"

@@ -2,5 +2,7 @@
     "executableDir": "C:/Users/Joshua/AppData/Local/chaingreen-blockchain/app-1.1.73/resources/app.asar.unpacked/daemon/",
     "scanTime": 10000,
 	"restartEnabled": true,
-	"restartInterval": 3600000
+	"restartInterval": 3600000,
+	"forkName": "chaingreen",
+	"port": 8744
 }
