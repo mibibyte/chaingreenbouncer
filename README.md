@@ -1,4 +1,4 @@
-# ChainGreenBouncer
+# ChiaForkBouncer
 
 Automatically detects & removes Chia nodes (port 8444) from your Chia Fork node.
 Quick, sloppy, but functional
